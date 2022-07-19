@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "two_pointers"
+		},
+		{
+			"path": "../leetcode/algo_study_plan"
+		},
+		{
+			"path": "fastSlow_pointers"
+		},
+		{
+			"path": "../leetcode"
+		}
+	],
+	"settings": {}
+}
