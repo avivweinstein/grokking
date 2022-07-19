@@ -18,39 +18,31 @@ class TreeNode {
 class PathWithGivenSequence {
  public:
   static bool findPath(TreeNode *root, const vector<int> &sequence) {
-    return dfs(root, sequence, 0);    
+    if (root == nullptr) {
+      return false;
+    }
+
+    return dfs(root, sequence, 0);
+
   }
 
-  private:
-    static bool dfs(TreeNode* root, const vector<int> & s, int seqPos){
-        if (root == nullptr){
-            // cout << "caught base case" << endl;
-            if(seqPos == s.size()){
-                return true;
-            }
+private:
+    static bool dfs(TreeNode* cur, const vector<int> &seq, int currentLocation){
+        if(cur == nullptr){
             return false;
         }
-        // cout << endl;
-        // cout << "NEW LOOP" << endl;
-        // cout << "seqPos: " << seqPos << endl;
-        // cout << "s[" << seqPos << "]: " << s[seqPos] << endl;
-        // cout << "root->val: " << root->val << endl;
 
-
-        if(root->val == s[seqPos]){
-            seqPos++;
-            // cout << "value is equal to sequence" << endl;
-            return (dfs(root->left, s, seqPos) || dfs(root->right, s, seqPos));
+        if(currentLocation >= seq.size() || cur->val != seq[currentLocation]){
+            return false;
         }
 
-
-        if(root->left == nullptr && root->right == nullptr && s[seqPos] == root->val){
+        if(cur->left == nullptr && cur->right == nullptr && currentLocation == seq.size() - 1){
             return true;
         }
-        // cout << "ending loop" << endl;
-        //return dfs(root->left, s, seqPos) || dfs(root->right, s, seqPos);
-        return false;
 
+        currentLocation++;
+        return dfs(cur->left, seq, currentLocation) || dfs(cur->right, seq, currentLocation);
+        
     }
 };
 
@@ -62,13 +54,8 @@ int main(int argc, char *argv[]) {
   root->right->left = new TreeNode(6);
   root->right->right = new TreeNode(5);
 
-  cout << "Tree has path sequence: " << PathWithGivenSequence::findPath(root, vector<int>{1, 0, 7}) << endl;
-// cout << "SECOND PROBLEM!!!!" << endl;
-  cout << "Tree has path sequence: " << PathWithGivenSequence::findPath(root, vector<int>{1, 1, 6}) << endl;
-  cout << "Aviv's Test Cases" << endl;
-  cout << "115?: " << PathWithGivenSequence::findPath(root, vector<int>{1, 1, 5}) << endl;
-  cout << "111?: " << PathWithGivenSequence::findPath(root, vector<int>{1, 1, 1}) << endl;
-  cout << "101?: " << PathWithGivenSequence::findPath(root, vector<int>{1, 0, 1}) << endl;
-  cout << "1: " << PathWithGivenSequence::findPath(root, vector<int>{1, 0, 1}) << endl;
-
+  cout << "Tree has path sequence: " 
+       << PathWithGivenSequence::findPath(root, vector<int>{1, 0, 7}) << endl;
+  cout << "Tree has path sequence: " 
+       << PathWithGivenSequence::findPath(root, vector<int>{1, 1, 6}) << endl;
 }

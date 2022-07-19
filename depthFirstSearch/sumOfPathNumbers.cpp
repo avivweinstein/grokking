@@ -17,14 +17,14 @@ class TreeNode {
 class SumOfPathNumbers {
  public:
   static int findSumOfPathNumbers(TreeNode *root) {
-    int result;
-    result = dfs(root,0);
-    return result;
+    return findPathSum(root, 0);
   }
 
 private:
-    static int dfs(TreeNode *root, int sum){
+    static int findPathSum(TreeNode* root, int sum){
         if(root == nullptr){
+            // cout << "Base case" << endl;
+            // cout << "sum: " << sum << endl;
             return 0;
         }
 
@@ -34,7 +34,7 @@ private:
             return sum;
         }
 
-        return dfs(root->left, sum) + dfs(root->right, sum);
+        return findPathSum(root->left, sum) + findPathSum(root->right, sum);
     }
 
 };
