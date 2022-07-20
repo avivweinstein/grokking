@@ -11,11 +11,13 @@ class NextLetter {
     int vecSize = letters.size();      //I want to keep track of how large the array is
 
     while(start<=end){
+      
         int mid = start + (end-start)/2;
+
         if(key < letters[mid]){
             end = mid-1;
         }
-        else{
+        else{         //if key >= letters[mid]
             start = mid+1;
         }
     }
