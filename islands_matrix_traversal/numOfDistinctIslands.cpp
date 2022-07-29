@@ -3,32 +3,45 @@ using namespace std;
 #include <iostream>
 #include <vector>
 #include <unordered_set>
+#include <string>
 
 class DistinctIslandsDFS
 {
 public:
     static int findDistinctIslandsDFS(vector<vector<int>> &m){
         unordered_set<string> set;
-        int row = m.size();
+        int rows = m.size();
         int cols = m[0].size();
         
-
-
         for (int i = 0; i < rows; i++){
             for (int j = 0; j < cols; j++){
                 if(m[i][j] == 1){
-                    traverseDFS(m, rows, cols, i, j, set);
+                    string travPath;
+                    traverseDFS(m, rows, cols, i, j, travPath, "o");
+                    // cout << "travPath: " << travPath << endl;
+                    set.insert(travPath);
                 }
             }
         }
         
-        int numDistinct = set.size();
-        return numDistinct;
+        return set.size();
     }
 
 private:
-    static int traverseDFS(vector<vector<int>> &m, int rows, int cols, int x, int y, unordered_set<string> s){
+    static void traverseDFS(vector<vector<int>> &m, int rows, int cols, int x, int y, string &traversalPath, string dir){
+        if(x < 0 || x >= rows || y < 0 || y >= cols || m[x][y] == 0){
+            return;
+        }
 
+        m[x][y] = 0;
+        traversalPath += dir;
+
+        traverseDFS(m, rows, cols, x+1, y, traversalPath, "D");
+        traverseDFS(m, rows, cols, x-1, y, traversalPath, "U");
+        traverseDFS(m, rows, cols, x, y+1, traversalPath, "R");
+        traverseDFS(m, rows, cols, x, y-1, traversalPath, "L");
+
+        traversalPath += "B";
     }
 };
 
