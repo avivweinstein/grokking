@@ -18,38 +18,32 @@ class TreeNode {
 class FindAllTreePaths {
  public:
   static vector<vector<int>> findPaths(TreeNode *root, int sum) {
-    vector<vector<int>> allPaths;
-    vector<int> currentPath;
-    findPathsRecursive(root, sum, currentPath, allPaths);
-    return allPaths;
-  }
 
+    vector<vector<int>> result;
+    vector<int> current;
+    findPathRecurse(root, sum, result, current);
+    return result;
+  }
+  
  private:
-  static void findPathsRecursive(TreeNode *currentNode, int sum, 
-                       vector<int> &currentPath, vector<vector<int>> &allPaths) {
-    if (currentNode == nullptr) {
+  static void findPathRecurse(TreeNode* root, int sum, vector<vector<int>> &res,
+                              vector<int> &cur){
+    if(root == nullptr){
       return;
     }
 
-    // add the current node to the path
-    currentPath.push_back(currentNode->val);
-
-    // if the current node is a leaf and its value is equal to sum, save the current path
-    if (currentNode->val == sum && currentNode->left == nullptr 
-                                && currentNode->right == nullptr) {
-      allPaths.push_back(vector<int>(currentPath));
-    } else {
-      // traverse the left sub-tree
-      findPathsRecursive(currentNode->left, sum - currentNode->val, 
-                                                    currentPath, allPaths);
-      // traverse the right sub-tree
-      findPathsRecursive(currentNode->right, sum - currentNode->val, 
-                                                    currentPath, allPaths);
+    cur.push_back(root->val);
+    
+    if(root->left == nullptr && root->right == nullptr && sum == root->val){
+      res.push_back(cur);
     }
 
-    // remove the current node from the path to backtrack,
-    // we need to remove the current node while we are going up the recursive call stack.
-    currentPath.pop_back();
+    sum = sum - root->val;
+
+    findPathRecurse(root->left, sum, res, cur);
+    findPathRecurse(root->right, sum, res, cur);
+
+    cur.pop_back();
   }
 };
 

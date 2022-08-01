@@ -21,13 +21,11 @@ class TreePathSum {
       return false;
     }
 
-    sum = sum - root->val;
-
-    if(root->left == nullptr && root->right == nullptr){
-      if(sum == 0){
-        return true;
-      }
+    if(root->left == nullptr && root->right == nullptr && sum == root->val){
+      return true;
     }
+
+    sum = sum-root->val;
 
     return hasPath(root->left, sum) || hasPath(root->right, sum);
   }

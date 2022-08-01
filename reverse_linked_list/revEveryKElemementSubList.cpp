@@ -16,27 +16,7 @@ class ListNode {
 class ReverseEveryKElements {
  public:
   static ListNode *reverse(ListNode *head, int k) {
-    if (k <= 1 || head == nullptr) {
-      return head;
-    }
-
-    ListNode* cur = head;
-    ListNode* prev = nullptr;
-    ListNode* next = nullptr;
-    ListNode* start = nullptr;
-    ListNode* end = nullptr;
-
-    for(int i = 0; cur != nullptr && i < )
-
-
-
-
-
-
-
-
-    
-
+  
     return head;
   }
 };

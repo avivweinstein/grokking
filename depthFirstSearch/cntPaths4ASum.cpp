@@ -16,31 +16,35 @@ class TreeNode {
 };
 
 class CountAllPathSum {
+    unordered_map<int, int> m;
+    int count = 0;
+
+
  public:
   static int countPaths(TreeNode *root, int S) {
-    int numPaths = 0;
-    numPaths += dfs(root, S);
-
-    return numPaths;
-
+    dfs(root, S, 0);
+    
+    return count;
   }
 
-private:
-    static int dfs(TreeNode* root, int S){
-        if(root == nullptr){
-            return 0;
-        }
-
-        int val = 0;
-
-        if(root->val == 0){
-            val = 1;
-        }
-
-        return val + dfs(root->left, S - root->val) + dfs(root->right, S-root->val);
-
+ private:
+  static void dfs(TreeNode* cur, int sum, int currentSum){
+    if(cur == nullptr){
+        return 0;
     }
-    
+
+    if(currentSum == sum){
+        count++;
+    }
+
+    if(m.find(sum-currentSum) != m.end()){
+        count += m[sum-currentSum]
+    }
+
+    for()
+
+
+  }
 };
 
 int main(int argc, char *argv[]) {
