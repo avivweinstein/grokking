@@ -12,7 +12,28 @@ class KClosestElements {
   };
 
   static vector<int> findClosestElements(const vector<int> &arr, int K, int X) {
-    
+    int index = binarySearch(arr, X);
+    int low = index - K, high = index + K;
+    low = max(low, 0);  // 'low' should not be less than zero
+    // 'high' should not be greater the size of the array
+    high = min(high, (int)arr.size() - 1); 
+
+    priority_queue<pair<int, int>, vector<pair<int, int>>, numCompare> minHeap;
+    // add all candidate elements to the min heap, sorted by their absolute difference 
+   // from 'X'
+    for (int i = low; i <= high; i++) {
+      minHeap.push(make_pair(abs(arr[i] - X), i));
+    }
+
+    // we need the top 'K' elements having smallest difference from 'X'
+    vector<int> result;
+    for (int i = 0; i < K; i++) {
+      result.push_back(arr[minHeap.top().second]);
+      minHeap.pop();
+    }
+
+    sort(result.begin(), result.end());
+    return result;
   }
 
  private:
@@ -38,7 +59,7 @@ class KClosestElements {
             end = mid-1;
         }
     }
-    result = 
+    result = start;
     return result;
     
   }
