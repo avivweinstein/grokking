@@ -6,14 +6,14 @@ using namespace std;
 class ReplacingOnes
 {
 public:
-    static int findLength(const vector<int> &arr, int k)
-    {
-        int windowStart = 0, maxLength = 0, maxOnesCount = 0;
+    static int findLength(const vector<int> &arr, int k){
+        int windowStart = 0;
+        int maxLength = 0;
+        int maxOnesCount = 0;
         // try to extend the range [windowStart, windowEnd]
         for (int windowEnd = 0; windowEnd < arr.size(); windowEnd++)
         {
-            if (arr[windowEnd] == 1)
-            {
+            if (arr[windowEnd] == 1){
                 maxOnesCount++;
             }
 
@@ -22,10 +22,8 @@ public:
             //  window with 'maxOnesCount' 1s and the remaining are 0s which should replace
             // with 1s. Now, if the remaining 0s are more than 'k', it is the time to shrink
             // the window as we are not allowed to replace more than 'k' Os.
-            if (windowEnd - windowStart + 1 - maxOnesCount > k)
-            {
-                if (arr[windowStart] == 1)
-                {
+            if (windowEnd - windowStart + 1 - maxOnesCount > k){
+                if (arr[windowStart] == 1){
                     maxOnesCount--;
                 }
                 windowStart++;
@@ -38,8 +36,7 @@ public:
     }
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
     cout << ReplacingOnes::findLength(vector<int>{0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1}, 2)
          << endl;
     cout << ReplacingOnes::findLength(vector<int>{0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1}, 3)
